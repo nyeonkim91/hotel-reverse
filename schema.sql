@@ -14,13 +14,13 @@ CREATE TABLE `Client` (
 );
 
 CREATE TABLE `Deal` (
-  `booking_Num` int(128) NOT NULL,
+  `booking_Num` int(8) NOT NULL,
   `client_Index` int,
   `checkIn_Date` DATE NOT NULL,
   `checkOut_Date` DATE NOT NULL,
   `mainArea_Name` varchar(128) NOT NULL,
   `subArea_Name` varchar(128) NOT NULL,
-  `bid_Price` int(128) NOT NULL,
+  `bid_Price` int(8) NOT NULL,
   `bid_StartTime` DATETIME NOT NULL,
   `bid_EndTime` DATETIME NOT NULL,
   `bid_Transaction` boolean NOT NULL default 0,
@@ -36,8 +36,10 @@ CREATE TABLE `Hotel` (
   `hotel_ID` varchar(128) NOT NULL ,
   `hotel_PW` varchar(128) NOT NULL ,
   `hotel_Name` varchar(128) NOT NULL ,
-  `hotel_Location` varchar(128) NOT NULL ,
-  `hotel_Rate` int(10) NOT NULL ,
+  `hotel_Address` varchar(128) NOT NULL ,
+  `mainArea_Name` varchar(128) NOT NULL,
+  `subArea_Name` varchar(128) NOT NULL,
+  `hotel_Rate` int(2) NOT NULL ,
   `mgr_Name` varchar(128) NOT NULL ,
   `booking_Num` int,
   PRIMARY KEY (`hotel_Index`),
