@@ -78,9 +78,12 @@ npm install
 ## TO-DO List
 
  - client
-   * 
- - server
-   * 
+   * iOS client 개발
+   * 디자인 개선
+   * 마이 페이지
+ - admin / manager
+   * Angular2 final release 후 안정화
+   * 디자인 개선
 
 
 ## Contributing
