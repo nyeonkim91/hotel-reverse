@@ -1,5 +1,8 @@
 import db from '../db';
 import path from 'path';
+import bcrypt from 'bcrypt';
+
+const SALTROUNDS = 10;
 
 ////////////////////////////////////////////////////////////////////////
 // hotel
@@ -25,37 +28,45 @@ export default (express) => {
   });
 
   router.post('/signup', (req, res) => {
-    db.Hotel.create({
-      hotel_ID: req.body.hotel_ID,
-      hotel_PW: req.body.hotel_PW,
-      hotel_Name: req.body.hotel_Name,
-      hotel_Address: req.body.hotel_Address,
-      mainArea_Name: req.body.mainArea_Name,
-      subArea_Name: req.body.subArea_Name,
-      hotel_Rate: req.body.hotel_Rate,
-      mgr_Name: req.body.mgr_Name
-    })
-    .then((hotel) => {
-      console.log(hotel.dataValues);
-      res.status(201).send({
-        success: true
-      });
-    })
-    .catch((error) => {
-      console.log("fail to register to the DB:", error);
-      res.status(500).send(error);
-    })
+    bcrypt.hash(req.body.hotel_PW, SALTROUNDS, (err, hash) => {
+      db.Hotel.create({
+        hotel_ID: req.body.hotel_ID,
+        hotel_PW: hash,
+        hotel_Name: req.body.hotel_Name,
+        hotel_Address: req.body.hotel_Address,
+        mainArea_Name: req.body.mainArea_Name,
+        subArea_Name: req.body.subArea_Name,
+        hotel_Rate: req.body.hotel_Rate,
+        mgr_Name: req.body.mgr_Name
+      })
+      .then((hotel) => {
+        console.log(hotel.dataValues);
+        res.status(201).send({
+          success: true
+        });
+      })
+      .catch((error) => {
+        console.log("fail to register to the DB:", error);
+        res.status(500).send(error);
+      })
+    });
   });
 
   router.post('/signin', (req, res) => {
-    db.Hotel.findAll({ where: {
+    db.Hotel.findOne({ where: {
       hotel_ID: req.body.hotel_ID,
-      hotel_PW: req.body.hotel_PW
     }})
     .then((hotel) => {
-      console.log('successfully loged in');
-      console.log(hotel[0].dataValues);
-      res.status(200).send(hotel[0].dataValues);
+      bcrypt.compare(req.body.hotel_PW, hotel.dataValues.hotel_PW, (err, isMatch) => {
+        if (isMatch) {
+          console.log('successfully loged in');
+          console.log(hotel.dataValues);
+          res.status(200).send(hotel.dataValues);
+        } else {
+          console.log("cannot log in");
+          res.status(404);
+        }
+      });
     })
     .catch((error) => {
       console.log("cannot log in:", error);
