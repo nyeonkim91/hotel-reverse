@@ -1,6 +1,9 @@
 import db from '../db';
 import moment from 'moment';
+import bcrypt from 'bcrypt';
 import helpers from '../config/helpers';
+
+const SALTROUNDS = 10;
 
 //////////////////////////////////////////////////////////////////////////
 // client
@@ -22,35 +25,43 @@ export default (express) => {
   let router = express.Router();
 
   router.post('/signup', (req, res) => {
-    db.Client.create({
-      client_Email: req.body.client_Email,
-      client_PW: req.body.client_PW,
-      client_Name: req.body.client_Name,
-      billingInfo: req.body.billingInfo,
-      member: 1
-    })
-    .then((client) => {
-      console.log('client signup: ', client.dataValues);
-      res.status(201).send({
-        id_token: helpers.createToken(client.dataValues),
+    bcrypt.hash(req.body.client_PW, SALTROUNDS, (err, hash) => {
+      db.Client.create({
+        client_Email: req.body.client_Email,
+        client_PW: hash,
+        client_Name: req.body.client_Name,
+        billingInfo: req.body.billingInfo,
+        member: 1
+      })
+      .then((client) => {
+        console.log('client signup: ', client.dataValues);
+        res.status(201).send({
+          id_token: helpers.createToken(client.dataValues),
+        });
+      })
+      .catch((error) => {
+        console.log("fail to register to the DB:", error);
+        res.status(400).send(error);
       });
-    })
-    .catch((error) => {
-      console.log("fail to register to the DB:", error);
-      res.status(400).send(error);
-    })
+    });
   });
 
   router.post('/signin', (req, res) => {
     db.Client.findOne({ where: {
-      client_Email: req.body.client_Email,
-      client_PW: req.body.client_PW
+      client_Email: req.body.client_Email
     }})
     .then((client) => {
-      console.log('successfully loged in');
-      console.log(client.dataValues);
-      res.status(200).send({
-        id_token: helpers.createToken(client.dataValues),
+      bcrypt.compare(req.body.client_PW, client.dataValues.client_PW, (err, isMatch) => {
+        if (isMatch) {
+          console.log('successfully loged in');
+          console.log(client.dataValues);
+          res.status(200).send({
+            id_token: helpers.createToken(client.dataValues),
+          });
+        } else {
+          console.log("cannot log in");
+          res.status(404);
+        }
       });
     })
     .catch((error) => {
@@ -58,7 +69,6 @@ export default (express) => {
       res.status(400).send(error);
     })
   });
-
 
   router.put('/bid/:client_Email', (req, res) => {
     db.Client.findOne({
