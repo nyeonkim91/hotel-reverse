@@ -21,6 +21,7 @@
 - angular2 rc 2.0.x
 - express 4.x
 - sequelizer 3.x
+- For details, consult package.json files
 
 ## Installation
 
@@ -39,9 +40,21 @@ then, cd ../manager
 npm install
 ```
 
+## How to run
+ - client
+   * launch '호텔리버스' in your mobile phone
+ - server
+   * running db server, setting up request routes
+     - from the root directory, cd server -> gulp
+   * serving administrator
+     - from the root directory, cd server -> cd admin -> npm start
+   * serving hotel managers
+     - from the root directory, cd server -> cd manager -> npm start
+
 ## Usage
  - Client
    * download '호텔리버스' app at Google Playstore
+   * https://play.google.com/store/apps/details?id=com.hotelandroid
  - Admin
    * http://
  - Hotel Manager
@@ -64,6 +77,10 @@ npm install
 
 ## TO-DO List
 
+ - client
+   * 
+ - server
+   * 
 
 
 ## Contributing
