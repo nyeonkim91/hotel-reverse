@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/router', './contract-details.component', '../services/contracts.service'], function(exports_1, context_1) {
+System.register(['angular2/core', 'angular2/router', './contract-details.component', '../services/contracts.service', '../custom-date.pipe'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['angular2/core', 'angular2/router', './contract-details.compone
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1, contract_details_component_1, contracts_service_1;
+    var core_1, router_1, contract_details_component_1, contracts_service_1, custom_date_pipe_1;
     var ContractsComponent;
     return {
         setters:[
@@ -25,6 +25,9 @@ System.register(['angular2/core', 'angular2/router', './contract-details.compone
             },
             function (contracts_service_1_1) {
                 contracts_service_1 = contracts_service_1_1;
+            },
+            function (custom_date_pipe_1_1) {
+                custom_date_pipe_1 = custom_date_pipe_1_1;
             }],
         execute: function() {
             ContractsComponent = (function () {
@@ -45,7 +48,8 @@ System.register(['angular2/core', 'angular2/router', './contract-details.compone
                     core_1.Component({
                         selector: 'contracts-list',
                         directives: [contract_details_component_1.ContractDetailsComponent, router_1.ROUTER_DIRECTIVES],
-                        template: "\n\n    <ul>\n      <li *ngFor=\"#contract of contracts\">\n        <a href=\"#\" [routerLink]=\"['Contract Details', {booking_Num: contract.booking_Num}]\">{{contract.subArea_Name}}</a>\n      </li>\n    </ul>\n\n  "
+                        templateUrl: './app/template/contacts.html',
+                        pipes: [custom_date_pipe_1.MakeKoreanDatePipe]
                     }), 
                     __metadata('design:paramtypes', [contracts_service_1.ContractsService])
                 ], ContractsComponent);

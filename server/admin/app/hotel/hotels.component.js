@@ -45,7 +45,7 @@ System.register(['angular2/core', 'angular2/router', './hotel-details.component'
                     core_1.Component({
                         selector: 'hotels-list',
                         directives: [hotel_details_component_1.HotelDetailsComponent, router_1.ROUTER_DIRECTIVES],
-                        template: "\n\n    <ul>\n      <li *ngFor=\"#hotel of hotels\">\n        <a href=\"#\" [routerLink]=\"['Hotel Details', {hotel_ID: hotel.hotel_ID}]\">{{hotel.hotel_Name}}</a>\n      </li>\n    </ul>\n\n  "
+                        templateUrl: './app/template/hotels.html',
                     }), 
                     __metadata('design:paramtypes', [hotels_service_1.HotelsService])
                 ], HotelsComponent);

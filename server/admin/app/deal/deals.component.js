@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/router', './deal-details.component', '../services/deals.service'], function(exports_1, context_1) {
+System.register(['angular2/core', 'angular2/router', './deal-details.component', '../services/deals.service', '../custom-datetime.pipe'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['angular2/core', 'angular2/router', './deal-details.component',
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1, deal_details_component_1, deals_service_1;
+    var core_1, router_1, router_2, deal_details_component_1, deals_service_1, custom_datetime_pipe_1;
     var DealsComponent;
     return {
         setters:[
@@ -19,17 +19,23 @@ System.register(['angular2/core', 'angular2/router', './deal-details.component',
             },
             function (router_1_1) {
                 router_1 = router_1_1;
+                router_2 = router_1_1;
             },
             function (deal_details_component_1_1) {
                 deal_details_component_1 = deal_details_component_1_1;
             },
             function (deals_service_1_1) {
                 deals_service_1 = deals_service_1_1;
+            },
+            function (custom_datetime_pipe_1_1) {
+                custom_datetime_pipe_1 = custom_datetime_pipe_1_1;
             }],
         execute: function() {
             DealsComponent = (function () {
-                function DealsComponent(dealsService) {
+                function DealsComponent(dealsService, routeParams, router) {
                     this.dealsService = dealsService;
+                    this.routeParams = routeParams;
+                    this.router = router;
                     this.deals = [];
                 }
                 DealsComponent.prototype.ngOnInit = function () {
@@ -38,16 +44,32 @@ System.register(['angular2/core', 'angular2/router', './deal-details.component',
                         .getAllDeals()
                         .subscribe(function (d) { return _this.deals = d; }, function (error) { return console.error('Error: ' + error); }, function () { return console.log('Successfully fetched all Deals!', _this.deals); });
                 };
+                DealsComponent.prototype.getRemainingBidTime = function (bid_Endtime) {
+                    var now = new Date();
+                    var end = new Date(bid_Endtime);
+                    var interval = end - now;
+                    if (interval < 0) {
+                        return "거래 종료";
+                    }
+                    var totalMinutes = Math.floor(interval / 1000 / 60);
+                    var hours = Math.floor(totalMinutes / 60);
+                    var mins = totalMinutes % 60;
+                    return "남은 시간: " + hours + " 시간 " + mins + " 분";
+                };
+                DealsComponent.prototype.onSelect = function (deal) {
+                    this.router.navigate(['Deal Details', { booking_Num: deal.booking_Num }]);
+                };
                 DealsComponent.prototype.selectDeal = function (deal) {
                     this.selectedDeal = deal;
                 };
                 DealsComponent = __decorate([
                     core_1.Component({
                         selector: 'deals-list',
-                        template: "\n\n    <ul>\n      <li *ngFor=\"#deal of deals\">\n        <a href=\"#\" [routerLink]=\"['Deal Details', {booking_Num: deal.booking_Num}]\">{{deal.subArea_Name}}</a>\n      </li>\n    </ul>\n\n  ",
-                        directives: [deal_details_component_1.DealDetailsComponent, router_1.ROUTER_DIRECTIVES]
+                        templateUrl: '/app/template/deals.html',
+                        directives: [deal_details_component_1.DealDetailsComponent, router_1.ROUTER_DIRECTIVES],
+                        pipes: [custom_datetime_pipe_1.MakeKoreanDateTimePipe]
                     }), 
-                    __metadata('design:paramtypes', [deals_service_1.DealsService])
+                    __metadata('design:paramtypes', [deals_service_1.DealsService, router_2.RouteParams, router_2.Router])
                 ], DealsComponent);
                 return DealsComponent;
             }());

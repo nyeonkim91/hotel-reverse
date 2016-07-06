@@ -1,4 +1,5 @@
 @import url(http://fonts.googleapis.com/earlyaccess/notosanskr.css);
+
 /*!
  * Start Bootstrap - SB Admin 2 (http://startbootstrap.com/)
  * Copyright 2013-2016 Start Bootstrap
@@ -83,7 +84,6 @@ body {
 }
 
 .navbar-top-links .dropdown-user {
-    cursor: pointer;
     right: 0;
     left: auto;
 }
@@ -231,6 +231,7 @@ body {
     position: relative;
     clear: both;
 }
+
 
 table.dataTable thead .sorting,
 table.dataTable thead .sorting_asc,

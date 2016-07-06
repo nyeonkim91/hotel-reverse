@@ -8,15 +8,7 @@ import { ClientsService } from '../services/clients.service';
 @Component({
   selector: 'clients-list',
   directives: [ClientDetailsComponent, ROUTER_DIRECTIVES],
-  template: `
-  
-    <ul>
-      <li *ngFor="#client of clients">
-        <a href="#" [routerLink]="['Client Details', {client_Email: client.client_Email}]">{{client.client_Name}}</a>
-      </li>
-    </ul>
-  
-  `
+  templateUrl: './app/template/clients.html'
 })
 
 export class ClientsComponent implements OnInit{

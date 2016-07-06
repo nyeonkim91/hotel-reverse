@@ -5,18 +5,13 @@ import { Contract } from './contract';
 import { ContractDetailsComponent } from './contract-details.component';
 import { ContractsService } from '../services/contracts.service';
 
+import { MakeKoreanDatePipe } from '../custom-date.pipe';
+
 @Component({
   selector: 'contracts-list',
   directives: [ContractDetailsComponent, ROUTER_DIRECTIVES],
-  template: `
-
-    <ul>
-      <li *ngFor="#contract of contracts">
-        <a href="#" [routerLink]="['Contract Details', {booking_Num: contract.booking_Num}]">{{contract.subArea_Name}}</a>
-      </li>
-    </ul>
-
-  `
+  templateUrl: './app/template/contacts.html',
+  pipes: [MakeKoreanDatePipe]
 })
 
 export class ContractsComponent implements OnInit{

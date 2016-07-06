@@ -49,7 +49,7 @@ System.register(['angular2/core', 'angular2/router', '../services/hotels.service
                 HotelDetailsComponent = __decorate([
                     core_1.Component({
                         selector: 'hotel-details',
-                        template: "\n\n    <div class=\"container\" *ngIf=\"hotel\">\n      <table class=\"table table-hover table-bordered table-striped\">\n        <thead>\n          <tr>\n            <th>\uD638\uD154 \uBC88\uD638</th>\n            <th>\uC544\uC774\uB514</th>\n            <th>\uBE44\uBC00\uBC88\uD638</th>\n            <th>\uD638\uD154 \uC774\uB984</th>\n            <th>\uC8FC\uC18C</th>\n            <th>\uC9C0\uC5ED(\uB300\uBD84\uB958)</th>\n            <th>\uC9C0\uC5ED(\uC18C\uBD84\uB958)</th>\n            <th>\uB4F1\uAE09</th>\n            <th>\uB2F4\uB2F9\uC790</th>\n          </tr>\n        </thead>\n        <tbody>\n          <tr>\n            <td>{{hotel.hotel_Index}}</td>\n            <td>{{hotel.hotel_ID}}</td>\n            <td>{{hotel.hotel_PW}}</td>\n            <td>{{hotel.hotel_Name}}</td>\n            <td>{{hotel.hotel_Address}}</td>\n            <td>{{hotel.mainArea_Name}}</td>\n            <td>{{hotel.subArea_Name}}</td>\n            <td>{{hotel.hotel_Rate}}</td>\n            <td>{{hotel.mgr_Name}}</td>\n          </tr>\n        </tbody>\n      </table>\n\n      <button class=\"btn btn-success\" (click)=\"gotoHotelsList()\">\uC804\uCCB4 \uD638\uD154 \uB9AC\uC2A4\uD2B8</button>\n    </div>\n  "
+                        templateUrl: './app/template/hotel-details.html',
                     }), 
                     __metadata('design:paramtypes', [hotels_service_1.HotelsService, router_1.RouteParams, router_1.Router])
                 ], HotelDetailsComponent);

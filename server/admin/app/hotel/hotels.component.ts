@@ -8,15 +8,7 @@ import { HotelsService } from '../services/hotels.service';
 @Component({
   selector: 'hotels-list',
   directives: [HotelDetailsComponent, ROUTER_DIRECTIVES],
-  template: `
-
-    <ul>
-      <li *ngFor="#hotel of hotels">
-        <a href="#" [routerLink]="['Hotel Details', {hotel_ID: hotel.hotel_ID}]">{{hotel.hotel_Name}}</a>
-      </li>
-    </ul>
-
-  `
+  templateUrl: './app/template/hotels.html',
 })
 
 export class HotelsComponent implements OnInit{
