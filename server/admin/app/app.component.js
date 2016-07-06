@@ -65,6 +65,7 @@ System.register(['angular2/core', 'angular2/router', './deal/deals.component', '
                     core_1.Component({
                         selector: 'my-app',
                         templateUrl: '/app/app.component.html',
+                        styleUrls: ['./app/style/app.css'],
                         directives: [deals_component_1.DealsComponent, hotels_component_1.HotelsComponent, clients_component_1.ClientsComponent, router_1.ROUTER_DIRECTIVES],
                         providers: [deals_service_1.DealsService, hotels_service_1.HotelsService, contracts_service_1.ContractsService, clients_service_1.ClientsService]
                     }),

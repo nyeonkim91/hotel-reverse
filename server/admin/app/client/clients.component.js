@@ -45,7 +45,7 @@ System.register(['angular2/core', 'angular2/router', './client-details.component
                     core_1.Component({
                         selector: 'clients-list',
                         directives: [client_details_component_1.ClientDetailsComponent, router_1.ROUTER_DIRECTIVES],
-                        template: "\n  \n    <ul>\n      <li *ngFor=\"#client of clients\">\n        <a href=\"#\" [routerLink]=\"['Client Details', {client_Email: client.client_Email}]\">{{client.client_Name}}</a>\n      </li>\n    </ul>\n  \n  "
+                        templateUrl: './app/template/clients.html',
                     }), 
                     __metadata('design:paramtypes', [clients_service_1.ClientsService])
                 ], ClientsComponent);

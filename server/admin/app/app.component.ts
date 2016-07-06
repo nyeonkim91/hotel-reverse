@@ -29,6 +29,7 @@ import { ClientsService } from './services/clients.service';
 @Component({
   selector: 'my-app',
   templateUrl: '/app/app.component.html',
+  styleUrls: ['./app/style/app.css'],
   directives: [DealsComponent, HotelsComponent, ClientsComponent, ROUTER_DIRECTIVES],
   providers: [DealsService, HotelsService, ContractsService, ClientsService]
 })

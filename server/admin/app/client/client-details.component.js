@@ -49,7 +49,7 @@ System.register(['angular2/core', 'angular2/router', '../services/clients.servic
                 ClientDetailsComponent = __decorate([
                     core_1.Component({
                         selector: 'client-details',
-                        template: "\n\n    <div class=\"container\" *ngIf=\"client\">\n      <table class=\"table table-hover table-bordered table-striped\">\n        <thead>\n          <tr>\n            <th>\uACE0\uAC1D \uBC88\uD638</th>\n            <th>\uC544\uC774\uB514</th>\n            <th>\uBE44\uBC00\uBC88\uD638</th>\n            <th>\uC774\uB984</th>\n            <th>\uC774\uBA54\uC77C</th>\n            <th>\uACB0\uC81C \uC815\uBCF4</th>\n            <th>\uD68C\uC6D0 \uC5EC\uBD80</th>\n          </tr>\n        </thead>\n        <tbody>\n          <tr>\n            <td>{{client.client_Index}}</td>\n            <td>{{client.client_ID}}</td>\n            <td>{{client.client_PW}}</td>\n            <td>{{client.client_Name}}</td>\n            <td>{{client.client_Email}}</td>\n            <td>{{client.billingInfo}}</td>\n            <td>{{client.member}}</td>\n          </tr>\n        </tbody>\n      </table>\n\n      <button class=\"btn btn-success\" (click)=\"gotoClientsList()\">\uC804\uCCB4 \uACE0\uAC1D \uB9AC\uC2A4\uD2B8</button>\n    </div>\n  "
+                        templateUrl: './app/template/client-details.html',
                     }), 
                     __metadata('design:paramtypes', [clients_service_1.ClientsService, router_1.RouteParams, router_1.Router])
                 ], ClientDetailsComponent);
