@@ -1,9 +1,8 @@
 import db from '../db';
 import moment from 'moment';
-import bcrypt from 'bcrypt';
+import crypto from 'crypto';
 import helpers from '../config/helpers';
-
-const SALTROUNDS = 10;
+import email from '../config/email';
 
 //////////////////////////////////////////////////////////////////////////
 // client
@@ -25,24 +24,23 @@ export default (express) => {
   let router = express.Router();
 
   router.post('/signup', (req, res) => {
-    bcrypt.hash(req.body.client_PW, SALTROUNDS, (err, hash) => {
-      db.Client.create({
-        client_Email: req.body.client_Email,
-        client_PW: hash,
-        client_Name: req.body.client_Name,
-        billingInfo: req.body.billingInfo,
-        member: 1
-      })
-      .then((client) => {
-        console.log('client signup: ', client.dataValues);
-        res.status(201).send({
-          id_token: helpers.createToken(client.dataValues),
-        });
-      })
-      .catch((error) => {
-        console.log("fail to register to the DB:", error);
-        res.status(400).send(error);
+    let crypted = helpers.encrypt(req.body.client_PW);
+    db.Client.create({
+      client_Email: req.body.client_Email,
+      client_PW: crypted,
+      client_Name: req.body.client_Name,
+      billingInfo: req.body.billingInfo,
+      member: 1
+    })
+    .then((client) => {
+      console.log('client signup: ', client.dataValues);
+      res.status(201).send({
+        id_token: helpers.createToken(client.dataValues),
       });
+    })
+    .catch((error) => {
+      console.log("fail to register to the DB:", error);
+      res.status(400).send(error);
     });
   });
 
@@ -51,18 +49,16 @@ export default (express) => {
       client_Email: req.body.client_Email
     }})
     .then((client) => {
-      bcrypt.compare(req.body.client_PW, client.dataValues.client_PW, (err, isMatch) => {
-        if (isMatch) {
-          console.log('successfully loged in');
-          console.log(client.dataValues);
-          res.status(200).send({
-            id_token: helpers.createToken(client.dataValues),
-          });
-        } else {
-          console.log("cannot log in");
-          res.status(404);
-        }
-      });
+      if (req.body.client_PW === helpers.decrypt(client.dataValues.client_PW)) {
+        console.log('successfully loged in');
+        console.log(client.dataValues);
+        res.status(200).send({
+          id_token: helpers.createToken(client.dataValues),
+        });
+      } else {
+        console.log("cannot log in");
+        res.status(404);
+      }
     })
     .catch((error) => {
       console.log("cannot log in:", error);

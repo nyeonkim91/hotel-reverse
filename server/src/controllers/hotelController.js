@@ -1,6 +1,7 @@
 import db from '../db';
 import path from 'path';
-import bcrypt from 'bcrypt';
+import crypto from 'crypto';
+import helpers from '../config/helpers';
 
 const SALTROUNDS = 10;
 
@@ -28,28 +29,27 @@ export default (express) => {
   });
 
   router.post('/signup', (req, res) => {
-    bcrypt.hash(req.body.hotel_PW, SALTROUNDS, (err, hash) => {
-      db.Hotel.create({
-        hotel_ID: req.body.hotel_ID,
-        hotel_PW: hash,
-        hotel_Name: req.body.hotel_Name,
-        hotel_Address: req.body.hotel_Address,
-        mainArea_Name: req.body.mainArea_Name,
-        subArea_Name: req.body.subArea_Name,
-        hotel_Rate: req.body.hotel_Rate,
-        mgr_Name: req.body.mgr_Name
-      })
-      .then((hotel) => {
-        console.log(hotel.dataValues);
-        res.status(201).send({
-          success: true
-        });
-      })
-      .catch((error) => {
-        console.log("fail to register to the DB:", error);
-        res.status(500).send(error);
-      })
-    });
+    let crypted = helpers.encrypt(req.body.hotel_PW);
+    db.Hotel.create({
+      hotel_ID: req.body.hotel_ID,
+      hotel_PW: crypted,
+      hotel_Name: req.body.hotel_Name,
+      hotel_Address: req.body.hotel_Address,
+      mainArea_Name: req.body.mainArea_Name,
+      subArea_Name: req.body.subArea_Name,
+      hotel_Rate: req.body.hotel_Rate,
+      mgr_Name: req.body.mgr_Name
+    })
+    .then((hotel) => {
+      console.log(hotel.dataValues);
+      res.status(201).send({
+        success: true
+      });
+    })
+    .catch((error) => {
+      console.log("fail to register to the DB:", error);
+      res.status(500).send(error);
+  });
   });
 
   router.post('/signin', (req, res) => {
@@ -57,16 +57,14 @@ export default (express) => {
       hotel_ID: req.body.hotel_ID,
     }})
     .then((hotel) => {
-      bcrypt.compare(req.body.hotel_PW, hotel.dataValues.hotel_PW, (err, isMatch) => {
-        if (isMatch) {
-          console.log('successfully loged in');
-          console.log(hotel.dataValues);
-          res.status(200).send(hotel.dataValues);
-        } else {
-          console.log("cannot log in");
-          res.status(404);
-        }
-      });
+      if (req.body.hotel_PW === helpers.decrypt(hotel.dataValues.hotel_PW)) {
+        console.log('successfully loged in');
+        console.log(hotel.dataValues);
+        res.status(200).send(hotel.dataValues);
+      } else {
+        console.log("cannot log in");
+        res.status(404);
+      }
     })
     .catch((error) => {
       console.log("cannot log in:", error);
