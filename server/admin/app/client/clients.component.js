@@ -45,7 +45,7 @@ System.register(['angular2/core', 'angular2/router', './client-details.component
                     core_1.Component({
                         selector: 'clients-list',
                         directives: [client_details_component_1.ClientDetailsComponent, router_1.ROUTER_DIRECTIVES],
-                        templateUrl: './app/template/clients.html',
+                        templateUrl: './app/template/clients.html'
                     }), 
                     __metadata('design:paramtypes', [clients_service_1.ClientsService])
                 ], ClientsComponent);

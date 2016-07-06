@@ -8,8 +8,7 @@ import { ClientsService } from '../services/clients.service';
 @Component({
   selector: 'clients-list',
   directives: [ClientDetailsComponent, ROUTER_DIRECTIVES],
-  templateUrl: './app/template/clients.html',
-
+  templateUrl: './app/template/clients.html'
 })
 
 export class ClientsComponent implements OnInit{

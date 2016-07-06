@@ -16,7 +16,6 @@ import { MakeKoreanDateTimePipe } from '../custom-datetime.pipe';
   directives: [DealDetailsComponent, ROUTER_DIRECTIVES],
   providers: [AuthenticationService, DealsService, SignService],
   templateUrl: './app/template/deals.html',
-  styleUrls: ['./app/style/deals.css'],
   pipes: [MakeKoreanDateTimePipe]
 })
 

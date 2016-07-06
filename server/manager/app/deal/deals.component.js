@@ -88,7 +88,6 @@ System.register(['angular2/core', 'angular2/router', './deal-details.component',
                         directives: [deal_details_component_1.DealDetailsComponent, router_1.ROUTER_DIRECTIVES],
                         providers: [authentication_service_1.AuthenticationService, deals_service_1.DealsService, sign_service_1.SignService],
                         templateUrl: './app/template/deals.html',
-                        styleUrls: ['./app/style/deals.css'],
                         pipes: [custom_datetime_pipe_1.MakeKoreanDateTimePipe]
                     }), 
                     __metadata('design:paramtypes', [deals_service_1.DealsService, router_2.RouteParams, router_2.Router, authentication_service_1.AuthenticationService])

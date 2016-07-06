@@ -3,6 +3,9 @@
   padding: 15px;
   margin: 0 auto;
 }
+#legend{
+  margin-top: 20px;
+}
 
 /*.form-signin .form-signin-heading,
 .form-signin .checkbox {
