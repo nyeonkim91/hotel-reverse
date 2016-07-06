@@ -2,7 +2,7 @@
 
 ## Synopsis
 
- Korea's number one reverse auction service for luxurious hotels
+ 대한민국 1등 호텔 역경매 서비스
 
 ## Motivation
 
@@ -41,13 +41,25 @@
 - angular2 rc 2.0.x
 - express 4.x
 - sequelizer 3.x
-- 
 
 ## Development
 
 ### Installing Dependencies
 
-From within the root directory:
+- client
+```
+ in the root driectory, cd HotelAndroid
+ npm install
+```
+- server
+```
+in the root directory, cd server
+npm install
+after that, cd admin
+npm install
+then, cd ../manager
+npm install
+```
 
 ```sh
 sudo npm install -g bower
@@ -62,4 +74,4 @@ View the project roadmap [here](LINK_TO_PROJECT_ISSUES)
 
 ## Contributing
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines.
+Contributors may send PULL REQUESTS to this repo.
