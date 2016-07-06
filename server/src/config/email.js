@@ -6,7 +6,7 @@ export default {
   var smtpTransport = nodemailer.createTransport("SMTP",{
       service: "Gmail",
       auth: {
-          user: "gooday2.luv@gmail.com",
+          user: "min7859@gmail.com",
           pass: "password"
       }
   });
