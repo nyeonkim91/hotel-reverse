@@ -37,18 +37,18 @@ System.register(['angular2/core', 'angular2/router', './sign.service'], function
                     var _this = this;
                     var h = hotel;
                     var authenticatedHotel;
+                    console.log(hotel);
                     this.signService
                         .logIn(hotel)
                         .subscribe(function (d) {
-                        console.log("dddddd => ", d);
-                        authenticatedHotel = (d.hotel_ID === h.hotel_ID && d.hotel_PW === h.hotel_PW);
-                        console.log("authenticated hotel is: ", authenticatedHotel);
-                        if (authenticatedHotel) {
+                        if (d) {
                             localStorage.setItem("hotel", JSON.stringify(h));
                             _this._router.navigate(['Deals']);
                             return true;
                         }
-                        return false;
+                        else {
+                            return false;
+                        }
                     }, function (error) { return console.log(error); }, function () { return console.log('Success!!!'); });
                 };
                 AuthenticationService.prototype.checkCredentials = function () {
