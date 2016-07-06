@@ -56,9 +56,9 @@ npm install
    * download '호텔리버스' app at Google Playstore
    * https://play.google.com/store/apps/details?id=com.hotelandroid
  - Admin
-   * http://
+   * http://52.78.70.114:8000
  - Hotel Manager
-   * http://
+   * http://52.78.70.114:9000
  
 
 ## Basic Structure
