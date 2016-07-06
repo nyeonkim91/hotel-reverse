@@ -9,4 +9,5 @@ System.register([], function(exports_1, context_1) {
         }
     }
 });
+// export const hostUrl = "http://localhost:9000/";
 //# sourceMappingURL=host-url.js.map

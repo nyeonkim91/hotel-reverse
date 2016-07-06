@@ -4,7 +4,6 @@ import {Router} from 'angular2/router';
 import {SignService} from './sign.service';
 
 
-
 @Injectable()
 export class AuthenticationService {
 
@@ -19,19 +18,18 @@ export class AuthenticationService {
   login(hotel){
     let h = hotel;
     let authenticatedHotel;
+    console.log(hotel);
     this.signService
       .logIn(hotel)
       .subscribe(
         d => {
-          console.log("dddddd => ", d);
-          authenticatedHotel = (d.hotel_ID === h.hotel_ID && d.hotel_PW === h.hotel_PW);
-          console.log("authenticated hotel is: ", authenticatedHotel);
-          if (authenticatedHotel) {
+          if(d){
             localStorage.setItem("hotel", JSON.stringify(h));
             this._router.navigate(['Deals']);
             return true;
+          }else{
+            return false;
           }
-          return false;
         },
         error => console.log(error),
         () => console.log('Success!!!')
@@ -45,4 +43,5 @@ export class AuthenticationService {
     }
     return true;
   }
+
 }
